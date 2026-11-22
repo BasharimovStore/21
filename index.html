@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BasharimovStore — Техніка, яка працює на тебе | Навушники та Павербанки</title>
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Шрифти Inter та Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Іконки Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#070a10',
+                            navy: '#0b0f17',
+                            card: '#111827',
+                            blue: '#0099ff',
+                            cyan: '#0ea5e9',
+                            glow: '#38bdf8'
+                        }
+                    },
+                    boxShadow: {
+                        'neon': '0 0 25px rgba(0, 153, 255, 0.45)',
+                        'neon-sm': '0 0 12px rgba(0, 153, 255, 0.35)',
+                        'card': '0 4px 20px -2px rgba(11, 15, 23, 0.06)',
+                        'card-hover': '0 14px 30px -5px rgba(0, 153, 255, 0.16), 0 8px 16px -6px rgba(11, 15, 23, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-blue selection:text-white flex flex-col min-h-screen">
+
+    <!-- Сповіщення (Toast) замість стандартних alert -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2.5 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+    <!-- ВЕРХНЯ ІНФОРМАЦІЙНА ПАНЕЛЬ -->
+    <div class="bg-brand-dark text-slate-300 text-xs border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+            <div class="flex items-center gap-4 sm:gap-6">
+                <a href="tel:+380670009988" class="flex items-center gap-1.5 hover:text-brand-blue transition-colors font-medium">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-blue"></i>
+                    <span>+38 (067) 000-99-88</span>
+                </a>
+                <span class="hidden md:flex items-center gap-1.5 text-slate-400">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-brand-blue"></i>
+                    <span>Пн–Нд: 09:00 – 21:00</span>
+                </span>
+                <span class="hidden lg:flex items-center gap-1.5 text-slate-400">
+                    <i data-lucide="truck" class="w-3.5 h-3.5 text-brand-blue"></i>
+                    <span>Відправка в день замовлення по всій Україні</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#advantages" class="hover:text-white transition-colors hidden sm:inline">Гарантія та повернення</a>
+                <a href="#footer-contacts" class="hover:text-white transition-colors">Контакти</a>
+                <span class="px-2 py-0.5 rounded-full bg-brand-blue/15 text-brand-glow font-semibold text-[11px] border border-brand-blue/30">
+                    UA • ₴
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОСНОВНА ШАПКА САЙТУ (Sticky Header) -->
+    <header class="sticky top-0 z-40 bg-brand-navy/95 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between py-3 gap-3 sm:gap-6">
+                
+                <!-- Фірмовий логотип BasharimovStore (повертає на головну сторінку) -->
+                <a href="#" onclick="navigateTo('home'); return false;" class="flex items-center gap-3 group shrink-0">
+                    <div class="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-brand-dark border-2 border-brand-blue shadow-neon-sm group-hover:shadow-neon transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-blue/25 via-transparent to-cyan-400/15"></div>
+                        <svg viewBox="0 0 100 100" class="w-8 h-8 sm:w-9 sm:h-9 relative z-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8"/>
+                                    <stop offset="50%" stop-color="#0099ff"/>
+                                    <stop offset="100%" stop-color="#0284c7"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Корона зверху -->
+                            <path d="M31 27 L25 14 L39 21 L50 11 L61 21 L75 14 L69 27 Z" fill="url(#logoBlueGrad)"/>
+                            <!-- Ліва блакитна грань літери B -->
+                            <path d="M27 36 L41 48 L41 72 L55 72 L42 86 L27 86 Z" fill="url(#logoBlueGrad)"/>
+                            <!-- Основна біла стилізована літера B -->
+                            <path d="M32 32 H58 C69 32 75 37 75 45 C75 51 71 55 65 57 C73 59 78 64 78 72 C78 81 70 86 58 86 H45 L56 73 H58 C62 73 65 71 65 68 C65 65 62 63 57 63 H45 V52 H56 C60 52 62 50 62 47 C62 44 60 42 56 42 H43 L32 32 Z" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="font-display italic font-black text-lg sm:text-xl tracking-tight leading-none">
+                            <span class="text-white">Basharimov</span><span class="text-brand-blue">Store</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Навігаційне меню розділів -->
+                <nav class="hidden md:flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+                    <button onclick="navigateTo('home')" data-nav="home" class="nav-link-btn px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-blue text-white shadow-neon-sm">
+                        Головна
+                    </button>
+                    <button onclick="navigateTo('headphones')" data-nav="headphones" class="nav-link-btn px-4 py-2 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2">
+                        <i data-lucide="headphones" class="w-4 h-4 text-brand-blue"></i>
+                        <span>Навушники</span>
+                    </button>
+                    <button onclick="navigateTo('powerbanks')" data-nav="powerbanks" class="nav-link-btn px-4 py-2 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2">
+                        <i data-lucide="battery-charging" class="w-4 h-4 text-brand-blue"></i>
+                        <span>Павербанки</span>
+                    </button>
+                </nav>
+
+                <!-- Дії користувача: Обране та Кошик -->
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <!-- Обране -->
+                    <button onclick="openWishlistModal()" class="relative p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-all group" title="Обрані товари">
+                        <i data-lucide="heart" class="w-5 h-5 group-hover:text-rose-400 transition-colors"></i>
+                        <span id="wishlist-badge" class="hidden absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-rose-500 text-white text-[11px] font-bold flex items-center justify-center shadow">0</span>
+                    </button>
+
+                    <!-- Кошик -->
+                    <button onclick="openCartDrawer()" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 hover:border-brand-blue/60 transition-all group relative">
+                        <div class="relative">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-blue group-hover:scale-110 transition-transform"></i>
+                            <span id="cart-badge" class="absolute -top-2 -right-2.5 min-w-[20px] h-5 px-1 rounded-full bg-brand-blue text-white text-[11px] font-bold flex items-center justify-center shadow-neon-sm">0</span>
+                        </div>
+                        <div class="hidden sm:flex flex-col text-left leading-tight pl-1">
+                            <span class="text-[10px] text-slate-400">Кошик</span>
+                            <span id="header-cart-total" class="text-xs font-bold text-white">0 ₴</span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Мобільна навігація розділів -->
+            <div class="flex md:hidden items-center justify-center gap-1.5 pb-3">
+                <button onclick="navigateTo('home')" data-nav="home" class="nav-link-btn flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-brand-blue text-white text-center">
+                    Головна
+                </button>
+                <button onclick="navigateTo('headphones')" data-nav="headphones" class="nav-link-btn flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-300 border border-slate-800 text-center">
+                    Навушники
+                </button>
+                <button onclick="navigateTo('powerbanks')" data-nav="powerbanks" class="nav-link-btn flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-300 border border-slate-800 text-center">
+                    Павербанки
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- СТОРІНКА 1: ГОЛОВНА СТОРІНКА (Hero + 2 великі блоки вибору категорій) -->
+    <!-- ===================================================================== -->
+    <div id="home-page-view" class="flex-1 flex flex-col">
+        
+        <!-- HERO-СЕКЦІЯ (Темна преміальна вітрина) -->
+        <section class="relative bg-brand-dark overflow-hidden border-b border-slate-800">
+            <!-- Фонове неонове підсвічування -->
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/15 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    
+                    <!-- Ліва частина: Заголовок, опис та швидкі кнопки -->
+                    <div class="lg:col-span-7 text-center lg:text-left space-y-5">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/30 text-brand-glow text-xs font-semibold tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                            <span>Сучасна техніка для твого життя</span>
+                        </div>
+
+                        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] tracking-tight">
+                            Оригінальний звук та <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-sky-400 to-cyan-300">безмежна енергія</span> гаджетів
+                        </h1>
+
+                        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            <strong class="text-white">BasharimovStore</strong> — спеціалізований магазин преміальної електроніки. Обирайте перевірені навушники та потужні павербанки з гарантією та відправкою по Україні в день замовлення.
+                        </p>
+
+                        <!-- Швидкі кнопки переходу в розділи -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+                            <button onclick="navigateTo('headphones')" class="flex items-center gap-2.5 bg-brand-blue hover:bg-sky-500 text-white font-bold px-6 py-3.5 rounded-2xl shadow-neon transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0">
+                                <i data-lucide="headphones" class="w-5 h-5"></i>
+                                <span>Перейти до навушників</span>
+                            </button>
+                            <button onclick="navigateTo('powerbanks')" class="flex items-center gap-2.5 bg-slate-800/90 hover:bg-slate-700 text-white font-bold px-6 py-3.5 rounded-2xl border border-slate-700 hover:border-brand-blue/60 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0">
+                                <i data-lucide="battery-charging" class="w-5 h-5 text-brand-blue"></i>
+                                <span>Перейти до павербанків</span>
+                            </button>
+                        </div>
+
+                        <!-- 4 фірмові переваги -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800/80">
+                            <div class="flex items-center gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+                                <div class="w-8 h-8 rounded-lg bg-brand-blue/15 text-brand-blue flex items-center justify-center shrink-0">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-200 leading-tight">Гарантія якості</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+                                <div class="w-8 h-8 rounded-lg bg-brand-blue/15 text-brand-blue flex items-center justify-center shrink-0">
+                                    <i data-lucide="truck" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-200 leading-tight">Швидка доставка</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+                                <div class="w-8 h-8 rounded-lg bg-brand-blue/15 text-brand-blue flex items-center justify-center shrink-0">
+                                    <i data-lucide="package" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-200 leading-tight">Широкий асортимент</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+                                <div class="w-8 h-8 rounded-lg bg-brand-blue/15 text-brand-blue flex items-center justify-center shrink-0">
+                                    <i data-lucide="star" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-200 leading-tight">Найкращі ціни</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Права частина: Фірмова емблема BasharimovStore -->
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-to-b from-slate-900 via-brand-dark to-black border-[3px] border-brand-blue shadow-neon flex flex-col items-center justify-center p-6 text-center select-none overflow-hidden group">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,153,255,0.22)_0%,transparent_70%)]"></div>
+                            
+                            <i data-lucide="headphones" class="w-20 h-20 text-brand-blue/15 absolute top-6 right-7 rotate-12 transition-transform duration-500 group-hover:scale-110"></i>
+                            <i data-lucide="battery-charging" class="w-16 h-16 text-brand-blue/15 absolute bottom-10 left-8 -rotate-12 transition-transform duration-500 group-hover:scale-110"></i>
+
+                            <!-- Центральний знак B + Корона -->
+                            <div class="relative z-10 mb-3">
+                                <svg viewBox="0 0 100 100" class="w-28 h-28 sm:w-32 sm:h-32 drop-shadow-[0_0_15px_rgba(0,153,255,0.5)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M31 27 L25 14 L39 21 L50 11 L61 21 L75 14 L69 27 Z" fill="#0099ff"/>
+                                    <path d="M27 36 L41 48 L41 72 L55 72 L42 86 L27 86 Z" fill="#0099ff"/>
+                                    <path d="M32 32 H58 C69 32 75 37 75 45 C75 51 71 55 65 57 C73 59 78 64 78 72 C78 81 70 86 58 86 H45 L56 73 H58 C62 73 65 71 65 68 C65 65 62 63 57 63 H45 V52 H56 C60 52 62 50 62 47 C62 44 60 42 56 42 H43 L32 32 Z" fill="#ffffff"/>
+                                </svg>
+                            </div>
+
+                            <!-- Напис BasharimovStore -->
+                            <div class="relative z-10 font-display italic font-black text-2xl sm:text-[28px] tracking-tight leading-none">
+                                <span class="text-white">Basharimov</span><span class="text-brand-blue">Store</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ДВА ВЕЛИКІ КЛІКАБЕЛЬНІ БЛОКИ ВИБОРУ КАТЕГОРІЙ (Навушники та Павербанки) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 w-full flex-1 flex flex-col justify-center">
+            <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+                <span class="inline-block px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-extrabold uppercase tracking-wider mb-2">
+                    Каталог магазину
+                </span>
+                <h2 class="font-display text-2xl sm:text-4xl font-black text-slate-900">Оберіть розділ техніки</h2>
+                <p class="text-sm sm:text-base text-slate-500 mt-2">
+                    Натисніть на потрібну категорію, щоб відкрити сторінку з усіма доступними моделями
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                
+                <!-- ВЕЛИКИЙ БЛОК 1: НАВУШНИКИ -->
+                <div onclick="navigateTo('headphones')" role="button" tabindex="0" class="cursor-pointer group relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-dark via-brand-navy to-slate-900 p-7 sm:p-10 border-2 border-slate-800 hover:border-brand-blue transition-all duration-300 shadow-xl hover:shadow-neon flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <!-- Неонове світіння на фоні -->
+                    <div class="absolute -right-12 -bottom-12 w-56 h-56 bg-brand-blue/20 rounded-full blur-3xl group-hover:bg-brand-blue/30 transition-all pointer-events-none"></div>
+                    
+                    <div class="relative z-10 space-y-4 text-center sm:text-left flex-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-brand-blue/20 border border-brand-blue/30 text-brand-glow text-xs font-bold uppercase tracking-wider">
+                            <span>4 моделі в наявності</span>
+                        </div>
+                        <h3 class="font-display text-3xl sm:text-4xl font-black text-white group-hover:text-brand-glow transition-colors">
+                            Навушники
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Добірка перевірених моделей: Hoco Air Pro 2 з шумозаглушенням, AirPods Pro 2 (з робочим шумозаглушенням), AirPods 4 (ANC) та повнорозмірні Бездротові Навушники.
+                        </p>
+                        <div class="pt-2">
+                            <span class="inline-flex items-center gap-2.5 bg-brand-blue group-hover:bg-sky-500 text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-neon-sm transition-all group-hover:translate-x-1">
+                                <span>Відкрити каталог навушників</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Кастомна деталізована SVG-ілюстрація преміальних навушників -->
+                    <div class="relative z-10 w-44 h-44 sm:w-52 sm:h-52 rounded-3xl bg-slate-900/90 border border-slate-700/80 group-hover:border-brand-blue/60 flex items-center justify-center shrink-0 p-4 shadow-inner group-hover:scale-105 transition-transform duration-300">
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,153,255,0.3)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="hpCupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#334155"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="hpAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8"/>
+                                    <stop offset="100%" stop-color="#0099ff"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Неонове кільце на фоні -->
+                            <circle cx="100" cy="100" r="76" stroke="#0099ff" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="8 6"/>
+                            <!-- Оголів'я навушників -->
+                            <path d="M44 112 C44 62, 156 62, 156 112" stroke="#475569" stroke-width="12" stroke-linecap="round"/>
+                            <path d="M52 108 C52 68, 148 68, 148 108" stroke="url(#hpAccentGrad)" stroke-width="4" stroke-linecap="round"/>
+                            <!-- Дужки кріплення -->
+                            <rect x="40" y="96" width="8" height="24" rx="4" fill="#94a3b8"/>
+                            <rect x="152" y="96" width="8" height="24" rx="4" fill="#94a3b8"/>
+                            <!-- Ліва чаша -->
+                            <rect x="28" y="106" width="28" height="54" rx="14" fill="url(#hpCupGrad)" stroke="#38bdf8" stroke-width="2"/>
+                            <rect x="52" y="110" width="10" height="46" rx="5" fill="#1e293b"/>
+                            <!-- Права чаша -->
+                            <rect x="144" y="106" width="28" height="54" rx="14" fill="url(#hpCupGrad)" stroke="#38bdf8" stroke-width="2"/>
+                            <rect x="138" y="110" width="10" height="46" rx="5" fill="#1e293b"/>
+                            <!-- Звукові хвилі всередині -->
+                            <path d="M84 128 Q92 116 100 128 T116 128" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M78 138 Q89 122 100 138 T122 138" stroke="#0099ff" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.7"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- ВЕЛИКИЙ БЛОК 2: ПАВЕРБАНКИ -->
+                <div onclick="navigateTo('powerbanks')" role="button" tabindex="0" class="cursor-pointer group relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-dark via-brand-navy to-slate-900 p-7 sm:p-10 border-2 border-slate-800 hover:border-brand-blue transition-all duration-300 shadow-xl hover:shadow-neon flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <!-- Неонове світіння на фоні -->
+                    <div class="absolute -right-12 -bottom-12 w-56 h-56 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/30 transition-all pointer-events-none"></div>
+                    
+                    <div class="relative z-10 space-y-4 text-center sm:text-left flex-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-brand-blue/20 border border-brand-blue/30 text-brand-glow text-xs font-bold uppercase tracking-wider">
+                            <span>6 моделей в наявності</span>
+                        </div>
+                        <h3 class="font-display text-3xl sm:text-4xl font-black text-white group-hover:text-brand-glow transition-colors">
+                            Павербанки
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Надійні зовнішні акумулятори з LED-дисплеями та швидкою зарядкою: Baseus Bipow 20W, Xiaomi Ultra Compact, Anker PowerCore, Hoco J101A, Baseus Adaman 65W та Apple MagSafe.
+                        </p>
+                        <div class="pt-2">
+                            <span class="inline-flex items-center gap-2.5 bg-brand-blue group-hover:bg-sky-500 text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-neon-sm transition-all group-hover:translate-x-1">
+                                <span>Відкрити каталог павербанків</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Кастомна деталізована SVG-ілюстрація потужного павербанка з дисплеєм -->
+                    <div class="relative z-10 w-44 h-44 sm:w-52 sm:h-52 rounded-3xl bg-slate-900/90 border border-slate-700/80 group-hover:border-brand-blue/60 flex items-center justify-center shrink-0 p-4 shadow-inner group-hover:scale-105 transition-transform duration-300">
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_10px_20px_rgba(0,153,255,0.3)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="pbBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e293b"/>
+                                    <stop offset="100%" stop-color="#090d16"/>
+                                </linearGradient>
+                                <linearGradient id="pbBoltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8"/>
+                                    <stop offset="100%" stop-color="#0099ff"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Декоративне коло -->
+                            <circle cx="100" cy="100" r="76" stroke="#38bdf8" stroke-opacity="0.2" stroke-width="2" stroke-dasharray="8 6"/>
+                            <!-- Корпус павербанка -->
+                            <rect x="56" y="28" width="88" height="144" rx="18" fill="url(#pbBodyGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+                            <!-- Верхні порти USB-C / USB-A -->
+                            <rect x="74" y="23" width="16" height="5" rx="2" fill="#64748b"/>
+                            <rect x="110" y="23" width="16" height="5" rx="2" fill="#0099ff"/>
+                            <!-- Цифровий дисплей -->
+                            <rect x="68" y="44" width="64" height="44" rx="10" fill="#05080f" stroke="#1e293b" stroke-width="1.5"/>
+                            <text x="100" y="66" text-anchor="middle" fill="#38bdf8" font-family="Montserrat, sans-serif" font-weight="900" font-size="16">100%</text>
+                            <text x="100" y="80" text-anchor="middle" fill="#34d399" font-family="Inter, sans-serif" font-weight="700" font-size="9">PD 140W FAST</text>
+                            <!-- Блискавка швидкої зарядки -->
+                            <path d="M104 102 L86 130 H100 L95 154 L115 124 H101 L104 102 Z" fill="url(#pbBoltGrad)"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- СТОРІНКА 2: ОКРЕМА СТОРІНКА РОЗДІЛУ (Навушники або Павербанки)        -->
+    <!-- ===================================================================== -->
+    <div id="category-page-view" class="hidden flex-1 flex flex-col">
+        
+        <!-- Верхній банер сторінки розділу з хлібними крихтами та перемикачем -->
+        <section class="bg-brand-dark text-white border-b border-slate-800 relative overflow-hidden">
+            <div class="absolute top-0 right-1/4 w-80 h-80 bg-brand-blue/15 rounded-full blur-[110px] pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 relative z-10 space-y-6">
+                
+                <!-- Хлібні крихти (Breadcrumbs) та кнопка повернення -->
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <nav aria-label="Хлібні крихти" class="flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+                        <button onclick="navigateTo('home')" class="hover:text-brand-blue transition-colors font-medium flex items-center gap-1">
+                            <i data-lucide="home" class="w-3.5 h-3.5"></i>
+                            <span>Головна</span>
+                        </button>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+                        <span id="breadcrumb-current" class="text-white font-bold">Навушники</span>
+                    </nav>
+
+                    <button onclick="navigateTo('home')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/90 hover:bg-brand-blue text-white text-xs sm:text-sm font-bold border border-slate-700 hover:border-brand-blue transition-all">
+                        <span>← Назад на головну</span>
+                    </button>
+                </div>
+
+                <!-- Заголовок сторінки категорії та швидкий перемикач між двома розділами -->
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                    <div class="space-y-2 max-w-2xl">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/15 border border-brand-blue/30 text-brand-glow text-xs font-bold">
+                            <span id="category-page-badge">Розділ каталогу</span>
+                        </div>
+                        <h1 id="category-page-title" class="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+                            Навушники
+                        </h1>
+                        <p id="category-page-subtitle" class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                            Оригінальні бездротові та повнорозмірні навушники з активним шумозаглушенням і гарантією якості.
+                        </p>
+                    </div>
+
+                    <!-- Швидкий перемикач між розділами «Навушники» та «Павербанки» -->
+                    <div class="flex items-center gap-2 bg-slate-900/95 p-1.5 rounded-2xl border border-slate-800 self-start lg:self-end">
+                        <button onclick="navigateTo('headphones')" id="switch-btn-headphones" class="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-brand-blue text-white shadow-neon-sm">
+                            <i data-lucide="headphones" class="w-4 h-4"></i>
+                            <span>Навушники (4)</span>
+                        </button>
+                        <button onclick="navigateTo('powerbanks')" id="switch-btn-powerbanks" class="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+                            <i data-lucide="battery-charging" class="w-4 h-4 text-brand-blue"></i>
+                            <span>Павербанки (6)</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- СІТКА ТОВАРІВ ОБРАНОГО РОЗДІЛУ (БЕЗ ЖОДНИХ ФІЛЬТРІВ) -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex-1">
+            <div class="flex items-center justify-between mb-6">
+                <p class="text-sm text-slate-600">
+                    Показано моделей у розділі: <strong id="category-items-count" class="text-slate-900">4</strong>
+                </p>
+                <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                    Усі моделі в наявності
+                </span>
+            </div>
+
+            <!-- Сітка товарів -->
+            <div id="category-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Картки товарів генеруються через JS -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- ІНФОРМАЦІЙНИЙ БЛОК ПЕРЕВАГ -->
+    <section id="advantages" class="bg-white border-t border-slate-200/80 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-blue">Чому обирають BasharimovStore</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Техніка, яка працює на тебе</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-brand-blue/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-navy text-brand-blue flex items-center justify-center mb-4 shadow-sm">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1.5">Гарантія якості</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Тільки оригінальні пристрої з серійними номерами, що перевіряються, та гарантією до 12 місяців.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-brand-blue/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-navy text-brand-blue flex items-center justify-center mb-4 shadow-sm">
+                        <i data-lucide="truck" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1.5">Швидка доставка</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Відправляємо замовлення Новою Поштою в день оформлення. Доставка по Україні за 1–2 дні.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-brand-blue/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-navy text-brand-blue flex items-center justify-center mb-4 shadow-sm">
+                        <i data-lucide="package-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1.5">Широкий асортимент</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Ретельно відібрані топові моделі навушників та павербанків для роботи, подорожей та спорту.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-brand-blue/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-navy text-brand-blue flex items-center justify-center mb-4 shadow-sm">
+                        <i data-lucide="badge-percent" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1.5">Найкращі ціни</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Чесна вартість без прихованих комісій, регулярні знижки та оплата при отриманні без передоплат.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР (Підвал сайту) -->
+    <footer id="footer-contacts" class="bg-brand-dark text-slate-300 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Колонка 1: Логотип та опис -->
+                <div class="space-y-4">
+                    <a href="#" onclick="navigateTo('home'); return false;" class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full bg-brand-navy border-2 border-brand-blue shadow-neon-sm flex items-center justify-center">
+                            <svg viewBox="0 0 100 100" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M31 27 L25 14 L39 21 L50 11 L61 21 L75 14 L69 27 Z" fill="#0099ff"/>
+                                <path d="M27 36 L41 48 L41 72 L55 72 L42 86 L27 86 Z" fill="#0099ff"/>
+                                <path d="M32 32 H58 C69 32 75 37 75 45 C75 51 71 55 65 57 C73 59 78 64 78 72 C78 81 70 86 58 86 H45 L56 73 H58 C62 73 65 71 65 68 C65 65 62 63 57 63 H45 V52 H56 C60 52 62 50 62 47 C62 44 60 42 56 42 H43 L32 32 Z" fill="#ffffff"/>
+                            </svg>
+                        </div>
+                        <div class="font-display italic font-black text-xl tracking-tight">
+                            <span class="text-white">Basharimov</span><span class="text-brand-blue">Store</span>
+                        </div>
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Техніка, яка працює на тебе. Сучасні бездротові навушники та надійні павербанки з доставкою по всій Україні.
+                    </p>
+                    <div class="flex items-center gap-3 pt-1">
+                        <a href="#footer-contacts" onclick="showToast('Ми в Instagram: @basharimov.store', 'info'); return false;" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-brand-blue text-slate-300 hover:text-white flex items-center justify-center border border-slate-800 transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#footer-contacts" onclick="showToast('Наш Telegram-канал: @basharimov_store', 'info'); return false;" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-brand-blue text-slate-300 hover:text-white flex items-center justify-center border border-slate-800 transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Колонка 2: Каталог -->
+                <div>
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Розділи каталогу</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li>
+                            <button onclick="navigateTo('home')" class="hover:text-brand-blue transition-colors flex items-center gap-2">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-brand-blue"></i>
+                                <span>Головна сторінка</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="navigateTo('headphones')" class="hover:text-brand-blue transition-colors flex items-center gap-2">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-brand-blue"></i>
+                                <span>Навушники</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="navigateTo('powerbanks')" class="hover:text-brand-blue transition-colors flex items-center gap-2">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-brand-blue"></i>
+                                <span>Павербанки</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Колонка 3: Клієнтам -->
+                <div>
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Клієнтам</h4>
+                    <ul class="space-y-2.5 text-sm text-slate-400">
+                        <li><a href="#advantages" class="hover:text-brand-blue transition-colors">Оплата і доставка</a></li>
+                        <li><a href="#advantages" class="hover:text-brand-blue transition-colors">Гарантія та обмін 14 днів</a></li>
+                        <li><button onclick="openWishlistModal()" class="hover:text-brand-blue transition-colors">Обрані товари</button></li>
+                        <li><button onclick="openCartDrawer()" class="hover:text-brand-blue transition-colors">Кошик замовлення</button></li>
+                    </ul>
+                </div>
+
+                <!-- Колонка 4: Контакти -->
+                <div>
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Контакти</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="phone" class="w-4 h-4 text-brand-blue shrink-0 mt-0.5"></i>
+                            <div>
+                                <a href="tel:+380670009988" class="text-white font-semibold hover:text-brand-blue transition-colors block">+38 (067) 000-99-88</a>
+                                <span class="text-xs text-slate-400">Щоденно з 09:00 до 21:00</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-brand-blue shrink-0 mt-0.5"></i>
+                            <span class="text-slate-400">м. Київ, доставка Новою Поштою по всій Україні</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i data-lucide="mail" class="w-4 h-4 text-brand-blue shrink-0"></i>
+                            <a href="mailto:info@basharimov.store" class="text-slate-400 hover:text-brand-blue transition-colors">info@basharimov.store</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800/80 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <p>© 2026 BasharimovStore. Усі права захищено. Техніка, яка працює на тебе.</p>
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-400 font-semibold">Apple Pay</span>
+                    <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-400 font-semibold">Google Pay</span>
+                    <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-slate-400 font-semibold">Накладений платіж</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЕ ВІКНО «ДЕТАЛЬНІШЕ» (ШВИДКИЙ ПЕРЕГЛЯД ТОВАРУ) -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors shadow-sm">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="product-modal-content" class="p-6 sm:p-8">
+                <!-- Контент заповнюється через JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ПОВНОЕКРАННИЙ ПЕРЕГЛЯД ФОТО (LIGHTBOX) -->
+    <div id="photo-lightbox" onclick="closePhotoLightbox()" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <button onclick="closePhotoLightbox()" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div onclick="event.stopPropagation()" class="max-w-2xl w-full flex flex-col items-center gap-3">
+            <div id="lightbox-stage" class="w-full aspect-[4/3] rounded-2xl overflow-hidden border border-slate-700 shadow-2xl bg-brand-navy"></div>
+            <p id="lightbox-caption" class="text-sm font-medium text-slate-200 text-center bg-slate-900/80 px-4 py-1.5 rounded-full border border-slate-700"></p>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНЕ ВІКНО ОБРАНИХ ТОВАРІВ -->
+    <div id="wishlist-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="heart" class="w-5 h-5 text-rose-500 fill-rose-500"></i>
+                    <h3 class="font-display font-bold text-lg text-slate-900">Обрані товари</h3>
+                </div>
+                <button onclick="closeWishlistModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="wishlist-modal-body" class="p-5 sm:p-6 overflow-y-auto flex-1 space-y-3">
+                <!-- Список обраних товарів -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ВИСУВНИЙ КОШИК ТА ОФОРМЛЕННЯ ЗАМОВЛЕННЯ (CART DRAWER) -->
+    <div id="cart-drawer-backdrop" onclick="closeCartDrawer()" class="fixed inset-0 z-50 hidden bg-brand-dark/75 backdrop-blur-sm transition-opacity"></div>
+    <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Заголовок кошика -->
+        <div class="p-5 bg-brand-navy text-white flex items-center justify-between border-b border-slate-800">
+            <div class="flex items-center gap-2.5">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-blue"></i>
+                <h3 class="font-display font-bold text-lg">Ваш кошик</h3>
+                <span id="drawer-cart-count" class="px-2 py-0.5 rounded-full bg-brand-blue text-xs font-bold">0</span>
+            </div>
+            <button onclick="closeCartDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Вміст кошика -->
+        <div id="cart-drawer-body" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Динамічний контент кошика -->
+        </div>
+
+        <!-- Нижня панель кошика -->
+        <div id="cart-drawer-footer" class="p-5 bg-slate-50 border-t border-slate-200 space-y-3">
+            <!-- Підсумок та кнопка оформлення -->
+        </div>
+    </aside>
+
+    <script>
+        // =========================================================================
+        // 1. КАСТОМНІ ДЕТАЛІЗОВАНІ SVG/CSS ВІЗУАЛІЗАЦІЇ ДЛЯ КОЖНОЇ МОДЕЛІ ТОВАРУ
+        // =========================================================================
+        function getProductIllustration(visualType) {
+            const illustrations = {
+                // --- НАВУШНИКИ (4 моделі) ---
+                'hoco-air-pro-2': `
+                    <svg viewBox="0 0 320 240" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="hocoStudioBg" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#f8fafc"/>
+                                <stop offset="65%" stop-color="#e2e8f0"/>
+                                <stop offset="100%" stop-color="#cbd5e1"/>
+                            </radialGradient>
+                            <linearGradient id="hocoWhiteBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="65%" stop-color="#f1f5f9"/>
+                                <stop offset="100%" stop-color="#cbd5e1"/>
+                            </linearGradient>
+                            <linearGradient id="hocoLidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#f8fafc"/>
+                                <stop offset="100%" stop-color="#e2e8f0"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="320" height="240" fill="url(#hocoStudioBg)"/>
+                        <ellipse cx="160" cy="204" rx="92" ry="16" fill="#0f172a" fill-opacity="0.14"/>
+                        <!-- Відкрита верхня кришка кейса -->
+                        <path d="M92 92 C92 50, 228 50, 228 92 L228 108 H92 Z" fill="url(#hocoLidGrad)" stroke="#cbd5e1" stroke-width="2"/>
+                        <ellipse cx="132" cy="82" rx="24" ry="13" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+                        <ellipse cx="188" cy="82" rx="24" ry="13" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+                        <!-- Лівий навушник у кейсі -->
+                        <g>
+                            <rect x="116" y="84" width="16" height="30" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                            <ellipse cx="122" cy="83" rx="16" ry="13" fill="url(#hocoWhiteBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                            <ellipse cx="107" cy="83" rx="6" ry="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+                            <rect x="122" y="77" width="4" height="10" rx="2" transform="rotate(-25 122 77)" fill="#1e293b"/>
+                        </g>
+                        <!-- Правий навушник у кейсі -->
+                        <g>
+                            <rect x="188" y="84" width="16" height="30" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                            <ellipse cx="198" cy="83" rx="16" ry="13" fill="url(#hocoWhiteBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                            <ellipse cx="213" cy="83" rx="6" ry="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+                            <rect x="193" y="77" width="4" height="10" rx="2" transform="rotate(25 193 77)" fill="#1e293b"/>
+                        </g>
+                        <!-- Основний білий корпус кейса -->
+                        <rect x="92" y="106" width="136" height="90" rx="30" fill="url(#hocoWhiteBody)" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M94 108 H226" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Зелений LED індикатор -->
+                        <circle cx="160" cy="134" r="7" fill="#22c55e" fill-opacity="0.25"/>
+                        <circle cx="160" cy="134" r="3.5" fill="#16a34a"/>
+                        <!-- Фірмовий напис hoco. -->
+                        <text x="160" y="168" text-anchor="middle" fill="#94a3b8" font-family="Montserrat, sans-serif" font-weight="800" font-size="16" letter-spacing="0.5">hoco.</text>
+                    </svg>
+                `,
+                'hoco-live-case': `
+                    <svg viewBox="0 0 320 240" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="natureBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#365314"/>
+                                <stop offset="50%" stop-color="#4d7c0f"/>
+                                <stop offset="100%" stop-color="#1e293b"/>
+                            </linearGradient>
+                            <linearGradient id="handSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f5c6a5"/>
+                                <stop offset="100%" stop-color="#dfa07a"/>
+                            </linearGradient>
+                            <linearGradient id="realCaseWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#e2e8f0"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Розмитий природний фон біля вікна -->
+                        <rect width="320" height="240" fill="url(#natureBg)"/>
+                        <circle cx="70" cy="48" r="55" fill="#bef264" fill-opacity="0.18"/>
+                        <circle cx="255" cy="60" r="65" fill="#fef08a" fill-opacity="0.15"/>
+                        <!-- Листя кімнатної рослини -->
+                        <path d="M20 185 C40 120, 110 115, 130 175 C95 190, 50 200, 20 185 Z" fill="#15803d"/>
+                        <path d="M210 175 C235 120, 295 125, 310 185 C275 195, 235 195, 210 175 Z" fill="#166534"/>
+                        <!-- Пальці руки, що тримають кейс -->
+                        <path d="M55 240 L74 148 C78 132, 98 132, 102 146 L112 195 L222 195 C238 195, 248 182, 244 166 C240 152, 224 150, 216 158 L216 240 Z" fill="url(#handSkin)"/>
+                        <!-- Відкритий кейс Hoco у руці -->
+                        <path d="M96 92 C96 58, 224 58, 224 92 L224 106 H96 Z" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <ellipse cx="134" cy="84" rx="22" ry="11" fill="#e2e8f0"/>
+                        <ellipse cx="186" cy="84" rx="22" ry="11" fill="#e2e8f0"/>
+                        <!-- Навушники всередині -->
+                        <ellipse cx="126" cy="88" rx="16" ry="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <ellipse cx="111" cy="88" rx="5.5" ry="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+                        <rect x="125" y="82" width="4" height="9" rx="2" transform="rotate(-25 125 82)" fill="#0f172a"/>
+                        <ellipse cx="194" cy="88" rx="16" ry="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <ellipse cx="209" cy="88" rx="5.5" ry="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+                        <rect x="191" y="82" width="4" height="9" rx="2" transform="rotate(25 191 82)" fill="#0f172a"/>
+                        <!-- Нижня частина кейса із яскравим зеленим індикатором -->
+                        <rect x="96" y="104" width="128" height="82" rx="26" fill="url(#realCaseWhite)" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <circle cx="160" cy="134" r="8" fill="#4ade80" fill-opacity="0.45"/>
+                        <circle cx="160" cy="134" r="3.5" fill="#22c55e"/>
+                        <!-- Нижні пальці -->
+                        <rect x="115" y="182" width="96" height="22" rx="11" fill="#eab38f"/>
+                        <rect x="122" y="202" width="88" height="22" rx="11" fill="#e0a37c"/>
+                    </svg>
+                `,
+                'hoco-live-box': `
+                    <svg viewBox="0 0 320 240" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="boxNatureBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3f6212"/>
+                                <stop offset="55%" stop-color="#65a30d"/>
+                                <stop offset="100%" stop-color="#1e293b"/>
+                            </linearGradient>
+                            <linearGradient id="boxSurface" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f8fafc"/>
+                                <stop offset="100%" stop-color="#cbd5e1"/>
+                            </linearGradient>
+                            <linearGradient id="handBoxSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f5c6a5"/>
+                                <stop offset="100%" stop-color="#d99b76"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Природний фон -->
+                        <rect width="320" height="240" fill="url(#boxNatureBg)"/>
+                        <circle cx="90" cy="52" r="58" fill="#fef08a" fill-opacity="0.2"/>
+                        <path d="M18 195 C45 130, 120 130, 145 195 Z" fill="#15803d"/>
+                        <path d="M190 195 C225 135, 285 140, 305 195 Z" fill="#166534"/>
+                        <!-- Оригінальна біла коробка hoco. під кутом -->
+                        <g transform="rotate(18 160 115)">
+                            <!-- Нижня тіньова грань коробки -->
+                            <polygon points="56,144 252,144 242,162 66,162" fill="#94a3b8"/>
+                            <!-- Лицьова грань коробки -->
+                            <rect x="56" y="72" width="196" height="72" rx="4" fill="url(#boxSurface)" stroke="#e2e8f0" stroke-width="1.5"/>
+                            <!-- Логотип hoco. по центру -->
+                            <text x="142" y="115" text-anchor="middle" fill="#64748b" font-family="Montserrat, sans-serif" font-weight="800" font-size="22" letter-spacing="0.5">hoco.</text>
+                            <!-- Ілюстрація нижньої частини кейса з портом зарядки справа -->
+                            <rect x="206" y="84" width="24" height="48" rx="12" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.2"/>
+                            <rect x="216" y="102" width="4" height="12" rx="2" fill="#475569"/>
+                            <circle cx="218" cy="94" r="1.5" fill="#64748b"/>
+                            <circle cx="218" cy="122" r="1.5" fill="#64748b"/>
+                            <!-- Звукові хвилі навколо кейса -->
+                            <path d="M201 101 C198 105, 198 111, 201 115" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M235 101 C238 105, 238 111, 235 115" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                        </g>
+                        <!-- Пальці руки, які тримають коробку -->
+                        <path d="M225 76 C246 72, 268 88, 266 112 L258 240 L185 240 L195 162 C180 156, 178 140, 194 138 L226 142 Z" fill="url(#handBoxSkin)"/>
+                    </svg>
+                `,
+                'airpods-pro-2': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#0099ff" stop-opacity="0.35"/>
+                                <stop offset="100%" stop-color="#0b0f17" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="caseWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#cbd5e1"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="90" r="80" fill="url(#glow1)"/>
+                        <!-- Відкрита кришка кейса -->
+                        <path d="M64 60 C64 36, 176 36, 176 60 L176 74 H64 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Зарядний кейс MagSafe -->
+                        <rect x="64" y="72" width="112" height="74" rx="22" fill="url(#caseWhite)" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Індикатор заряду -->
+                        <circle cx="120" cy="94" r="3.5" fill="#10b981"/>
+                        <!-- Лівий та правий навушники з амбушурами -->
+                        <rect x="84" y="46" width="22" height="36" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <ellipse cx="83" cy="58" rx="5.5" ry="8" fill="#1e293b"/>
+                        <rect x="134" y="46" width="22" height="36" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <ellipse cx="157" cy="58" rx="5.5" ry="8" fill="#1e293b"/>
+                        <text x="120" y="164" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">РОБОЧИЙ ANC • MAGSAFE • H2</text>
+                    </svg>
+                `,
+                'airpods-4-anc': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="90" r="76" fill="#38bdf8" fill-opacity="0.14"/>
+                        <!-- Ультракомпактний кейс AirPods 4 USB-C -->
+                        <rect x="74" y="62" width="92" height="82" rx="26" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+                        <path d="M74 90 H166" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <!-- Прихований світловий індикатор -->
+                        <circle cx="120" cy="107" r="3" fill="#0099ff"/>
+                        <!-- Вкладиші без амбушур AirPods 4 -->
+                        <path d="M92 36 C92 30, 108 30, 108 38 L108 66 C108 69, 100 69, 100 66 L100 48 H92 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <path d="M148 36 C148 30, 132 30, 132 38 L132 66 C132 69, 140 69, 140 66 L140 48 H148 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <text x="120" y="164" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">AIRPODS 4 • ANC • USB-C</text>
+                    </svg>
+                `,
+                'wireless-headphones': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="overEarCup" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#334155"/>
+                                <stop offset="100%" stop-color="#0f172a"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="90" r="76" stroke="#0099ff" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="6 6"/>
+                        <!-- М'яке оголів'я -->
+                        <path d="M70 98 C70 36, 170 36, 170 98" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M78 94 C78 44, 162 44, 162 94" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- Дужки -->
+                        <rect x="66" y="86" width="8" height="20" rx="4" fill="#94a3b8"/>
+                        <rect x="166" y="86" width="8" height="20" rx="4" fill="#94a3b8"/>
+                        <!-- Ліва та права повнорозмірні чаші -->
+                        <rect x="54" y="96" width="28" height="52" rx="14" fill="url(#overEarCup)" stroke="#38bdf8" stroke-width="2"/>
+                        <rect x="78" y="100" width="10" height="44" rx="5" fill="#1e293b"/>
+                        <rect x="158" y="96" width="28" height="52" rx="14" fill="url(#overEarCup)" stroke="#38bdf8" stroke-width="2"/>
+                        <rect x="152" y="100" width="10" height="44" rx="5" fill="#1e293b"/>
+                        <!-- Звукові хвилі -->
+                        <path d="M102 120 Q111 108 120 120 T138 120" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">BLUETOOTH 5.3 • 30 ГОД МУЗИКИ</text>
+                    </svg>
+                `,
+
+                // --- ПАВЕРБАНКИ (6 моделей) ---
+                'baseus-bipow': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="90" r="76" fill="#0099ff" fill-opacity="0.12"/>
+                        <rect x="82" y="24" width="76" height="124" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                        <rect x="94" y="38" width="52" height="36" rx="8" fill="#020617" stroke="#334155" stroke-width="1"/>
+                        <text x="120" y="61" text-anchor="middle" fill="#38bdf8" font-family="Montserrat, sans-serif" font-weight="900" font-size="15">100%</text>
+                        <text x="120" y="106" text-anchor="middle" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="800" font-size="11">BASEUS</text>
+                        <text x="120" y="122" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-weight="600" font-size="9">20,000 mAh</text>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">BIPOW DIGITAL • PD 20W</text>
+                    </svg>
+                `,
+                'xiaomi-compact': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <rect x="86" y="32" width="68" height="112" rx="16" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+                        <circle cx="105" cy="48" r="2.5" fill="#38bdf8"/>
+                        <circle cx="115" cy="48" r="2.5" fill="#38bdf8"/>
+                        <circle cx="125" cy="48" r="2.5" fill="#38bdf8"/>
+                        <circle cx="135" cy="48" r="2.5" fill="#38bdf8"/>
+                        <rect x="106" y="72" width="28" height="28" rx="7" fill="#f97316"/>
+                        <text x="120" y="90" text-anchor="middle" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="900" font-size="12">mi</text>
+                        <text x="120" y="124" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-weight="700" font-size="9.5">10,000 mAh</text>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">ULTRA COMPACT • 22.5W</text>
+                    </svg>
+                `,
+                'anker-essential': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="90" r="78" fill="#0099ff" fill-opacity="0.12"/>
+                        <rect x="82" y="24" width="76" height="124" rx="14" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="120" cy="54" r="14" stroke="#38bdf8" stroke-width="2.5"/>
+                        <circle cx="120" cy="46" r="2" fill="#38bdf8"/>
+                        <circle cx="128" cy="54" r="2" fill="#38bdf8"/>
+                        <circle cx="120" cy="62" r="2" fill="#38bdf8"/>
+                        <circle cx="112" cy="54" r="2" fill="#38bdf8"/>
+                        <text x="120" y="106" text-anchor="middle" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="900" font-size="12">ANKER</text>
+                        <text x="120" y="122" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="9.5">POWERCORE PD</text>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">20000 MAH • POWERIQ 20W</text>
+                    </svg>
+                `,
+                'hoco-astute': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <rect x="80" y="24" width="80" height="124" rx="14" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                        <rect x="92" y="38" width="56" height="34" rx="8" fill="#020617"/>
+                        <text x="120" y="60" text-anchor="middle" fill="#10b981" font-family="Montserrat, sans-serif" font-weight="900" font-size="14">100%</text>
+                        <text x="120" y="106" text-anchor="middle" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="900" font-size="12">HOCO</text>
+                        <text x="120" y="122" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-weight="700" font-size="9.5">J101A ASTUTE</text>
+                        <text x="120" y="166" text-anchor="middle" fill="#10b981" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">20000 MAH • FAST 22.5W</text>
+                    </svg>
+                `,
+                'baseus-adaman': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <rect x="80" y="24" width="80" height="124" rx="14" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="120" cy="60" r="20" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+                        <text x="120" y="64" text-anchor="middle" fill="#38bdf8" font-family="Montserrat, sans-serif" font-weight="900" font-size="12">65W</text>
+                        <text x="120" y="108" text-anchor="middle" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="800" font-size="11">ADAMAN</text>
+                        <text x="120" y="123" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-weight="600" font-size="9">METAL EDITION</text>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">20000 MAH • LAPTOP 65W</text>
+                    </svg>
+                `,
+                'apple-magsafe': `
+                    <svg viewBox="0 0 240 180" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="240" height="180" fill="#0b0f17"/>
+                        <circle cx="120" cy="88" r="72" fill="#0099ff" fill-opacity="0.12"/>
+                        <!-- Компактний білий корпус Apple MagSafe Battery Pack -->
+                        <rect x="84" y="32" width="72" height="112" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        <!-- Магнітне кільце MagSafe -->
+                        <circle cx="120" cy="86" r="22" stroke="#0099ff" stroke-width="4"/>
+                        <line x1="120" y1="113" x2="120" y2="125" stroke="#0099ff" stroke-width="4" stroke-linecap="round"/>
+                        <text x="120" y="166" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-weight="700" font-size="10" letter-spacing="1.5">MAGSAFE • FOR IPHONE</text>
+                    </svg>
+                `
+            };
+            return illustrations[visualType] || illustrations['airpods-pro-2'];
+        }
+
+        // =========================================================================
+        // 2. БАЗА ТОВАРІВ (4 моделі у розділі «Навушники» та 6 моделей у «Павербанки»)
+        // =========================================================================
+        const PRODUCTS = [
+            // --- РОЗДІЛ 1: НАВУШНИКИ (4 моделі) ---
+            {
+                id: 'hp-hoco-pro-2',
+                category: 'headphones',
+                categoryName: 'Навушники',
+                brand: 'Hoco',
+                title: 'Hoco Air Pro 2 з шумозаглушенням',
+                price: 1190,
+                oldPrice: 1490,
+                badge: 'Хіт',
+                badgeType: 'hit',
+                rating: 4.9,
+                reviewsCount: 94,
+                colors: ['Білий', 'Чорний'],
+                visualType: 'hoco-air-pro-2',
+                gallery: [
+                    {
+                        visualType: 'hoco-air-pro-2',
+                        label: 'Студійне фото Hoco Air Pro 2'
+                    },
+                    {
+                        visualType: 'hoco-live-case',
+                        label: 'Живе фото: відкритий кейс із зеленим індикатором'
+                    },
+                    {
+                        visualType: 'hoco-live-box',
+                        label: 'Живе фото: оригінальна коробка hoco.'
+                    }
+                ],
+                shortSpecs: 'Активне шумозаглушення ANC • Прозорий режим • Сенсорне керування • Зарядний кейс з індикатором',
+                description: 'Бездротові TWS-навушники Hoco Air Pro 2 з активним шумозаглушенням (ANC) та режимом прозорості. Оснащені чутливим сенсорним керуванням, ергономічними силіконовими амбушурами та компактним зарядним кейсом з індикатором рівня заряду.',
+                specs: {
+                    'Тип підключення': 'Бездротові TWS (Bluetooth 5.3)',
+                    'Шумозаглушення': 'Активне (ANC) + прозорий режим',
+                    'Керування': 'Сенсорне (музика, дзвінки, режими ANC)',
+                    'Автономність': 'До 5 год (до 24 год із зарядним кейсом)',
+                    'Зарядний кейс': 'З LED-індикатором рівня заряду',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'hp-airpods-pro-2',
+                category: 'headphones',
+                categoryName: 'Навушники',
+                brand: 'Apple',
+                title: 'AirPods Pro 2 (з робочим шумозаглушенням)',
+                price: 2490,
+                oldPrice: 2990,
+                badge: 'Хіт',
+                badgeType: 'hit',
+                rating: 5.0,
+                reviewsCount: 142,
+                colors: ['Білий'],
+                visualType: 'airpods-pro-2',
+                shortSpecs: 'Робоче активне шумозаглушення ANC • Режим прозорості • Кейс MagSafe з динаміком • Сенсор гучності',
+                description: 'Топова версія AirPods Pro 2 з повноцінним робочим активним шумозаглушенням (ANC) та режимом прозорості. Підтримує сенсорне регулювання гучності на ніжці, анімацію підключення, просторове аудіо та зарядний кейс MagSafe із динаміком і отвором для шнурка.',
+                specs: {
+                    'Шумозаглушення': 'Робоче активне (ANC) + прозорий режим',
+                    'Керування': 'Сенсорне регулювання гучності на ніжці',
+                    'Зарядний кейс': 'MagSafe з динаміком та індикатором',
+                    'Автономність': 'До 6 год (до 30 год із кейсом)',
+                    'Комплектація': 'Навушники, кейс, 4 пари амбушур, кабель',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'hp-airpods-4-anc',
+                category: 'headphones',
+                categoryName: 'Навушники',
+                brand: 'Apple',
+                title: 'AirPods 4 (ANC)',
+                price: 2290,
+                oldPrice: 2690,
+                badge: 'Новинка',
+                badgeType: 'new',
+                rating: 4.9,
+                reviewsCount: 82,
+                colors: ['Білий'],
+                visualType: 'airpods-4-anc',
+                shortSpecs: 'Оновлений ергономічний дизайн без амбушур • Активне шумозаглушення ANC • Адаптивний еквалайзер • Кейс USB-C',
+                description: 'Нове покоління вкладишів AirPods 4 (ANC) в оновленому анатомічному корпусі без силіконових амбушур, але з ефективним активним шумозаглушенням ANC, адаптивним еквалайзером та ультракомпактним зарядним кейсом USB-C.',
+                specs: {
+                    'Форм-фактор': 'Ергономічні вкладиші без амбушур',
+                    'Шумозаглушення': 'Активне шумозаглушення (ANC)',
+                    'Звук': 'Адаптивний еквалайзер та глибокий бас',
+                    'Зарядний кейс': 'Ультракомпактний кейс USB-C',
+                    'Автономність': 'До 5 год (до 30 год із кейсом)',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'hp-wireless-overear',
+                category: 'headphones',
+                categoryName: 'Навушники',
+                brand: 'Universal Audio',
+                title: 'Бездротові Навушники',
+                price: 1490,
+                oldPrice: 1850,
+                badge: 'Акція',
+                badgeType: 'sale',
+                rating: 4.8,
+                reviewsCount: 115,
+                colors: ['Чорний', 'Сріблястий', 'Синій'],
+                visualType: 'wireless-headphones',
+                shortSpecs: 'Повнорозмірні з м’якими амбушурами • Глибокі баси • Bluetooth 5.3 • Автономність до 30 годин',
+                description: 'Універсальні повнорозмірні бездротові навушники з м’якими амбушурами з екошкіри, потужними 40-мм динаміками з глибокими басами, стабільним з’єднанням Bluetooth 5.3 та автономністю до 30 годин безперервного прослуховування.',
+                specs: {
+                    'Тип конструкції': 'Повнорозмірні накладні',
+                    'Амбушури': 'М’які з ефектом пам’яті',
+                    'Підключення': 'Bluetooth 5.3 + роз’єм AUX 3.5 мм',
+                    'Автономність': 'До 30 годин роботи',
+                    'Вбудований мікрофон': 'Так, для комфортних дзвінків',
+                    'Гарантія': '12 місяців'
+                }
+            },
+
+            // --- РОЗДІЛ 2: ПАВЕРБАНКИ (6 моделей) ---
+            {
+                id: 'pb-1',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Baseus',
+                title: 'Baseus Bipow Digital Display 20000mAh 20W',
+                price: 1599,
+                oldPrice: 1899,
+                badge: 'Хіт',
+                badgeType: 'hit',
+                rating: 4.9,
+                reviewsCount: 164,
+                colors: ['Чорний', 'Білий'],
+                visualType: 'baseus-bipow',
+                shortSpecs: '20000 мАг • Швидка зарядка PD 20W / QC 3.0 • Цифровий LED-дисплей • 3 вихідних порти',
+                description: 'Надійний та стильний павербанк Baseus Bipow ємністю 20 000 мАг із цифровим дисплеєм, що показує точний залишок заряду у відсотках. Підтримує швидку зарядку Power Delivery 20W для iPhone та Quick Charge 3.0 для Android.',
+                specs: {
+                    'Ємність акумулятора': '20 000 мАг (74 Вт·год)',
+                    'Максимальна потужність': '20W Power Delivery / QC 3.0',
+                    'Порти': '2× USB-A, 1× USB-C (вхід/вихід), 1× Micro-USB',
+                    'Дисплей': 'Цифровий світлодіодний індикатор (%)',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'pb-2',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Xiaomi',
+                title: 'Xiaomi Mi Power Bank 3 Ultra Compact 10000mAh',
+                price: 1199,
+                oldPrice: 1399,
+                badge: 'Хіт',
+                badgeType: 'hit',
+                rating: 4.9,
+                reviewsCount: 138,
+                colors: ['Чорний'],
+                visualType: 'xiaomi-compact',
+                shortSpecs: '10000 мАг • Кишеньковий формат (200 г) • Швидка зарядка 22.5W • Одночасна зарядка 3 пристроїв',
+                description: 'Ультракомпактний зовнішній акумулятор Xiaomi, який легко поміщається у кишеню джинсів або невелику сумку. Незважаючи на мініатюрні розміри, підтримує швидку зарядку потужністю до 22.5W.',
+                specs: {
+                    'Ємність': '10 000 мАг (37 Вт·год)',
+                    'Вихідна потужність': 'До 22.5W (USB-C та USB-A)',
+                    'Вага': 'Всього 200 г',
+                    'Особливості': 'Режим слабкого струму для навушників і годинників',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'pb-3',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Anker',
+                title: 'Anker PowerCore Essential 20000 PD',
+                price: 2399,
+                oldPrice: 2799,
+                badge: 'Хіт',
+                badgeType: 'hit',
+                rating: 5.0,
+                reviewsCount: 109,
+                colors: ['Чорний'],
+                visualType: 'anker-essential',
+                shortSpecs: '20000 мАг • Технологія PowerIQ 2.0 + 20W USB-C PD • Текстурований корпус • Захист MultiProtect',
+                description: 'Еталон надійності від світового лідера Anker. Ємність 20 000 мАг забезпечує до 4–5 повних зарядок сучасного смартфона, а система безпеки MultiProtect захищає гаджети від перегріву та стрибків напруги.',
+                specs: {
+                    'Ємність': '20 000 мАг',
+                    'Максимальна потужність': '20W USB-C Power Delivery',
+                    'Порти': '1× USB-C (20W), 1× USB-A (PowerIQ 18W)',
+                    'Покриття корпусу': 'Матовий текстурований корпус проти подряпин',
+                    'Гарантія': '18 місяців'
+                }
+            },
+            {
+                id: 'pb-4',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Hoco',
+                title: 'Hoco J101A Astute 20000mAh 22.5W',
+                price: 1099,
+                oldPrice: 1299,
+                badge: 'Акція',
+                badgeType: 'sale',
+                rating: 4.8,
+                reviewsCount: 151,
+                colors: ['Чорний', 'Білий'],
+                visualType: 'hoco-astute',
+                shortSpecs: '20000 мАг • Швидка зарядка 22.5W / PD 20W • LED-індикатор заряду • Вогнестійкий корпус',
+                description: 'Практичний та доступний павербанк Hoco J101A Astute із підтримкою протоколів швидкої зарядки PD 20W, QC 3.0 та Huawei SuperCharge 22.5W. Оснащений чітким LED-дисплеєм рівня заряду.',
+                specs: {
+                    'Ємність': '20 000 мАг (74 Вт·год)',
+                    'Вихідна потужність': '22.5W (USB-A) / 20W (USB-C PD)',
+                    'Роз’єми': '2× USB-A, 1× USB-C, 1× Micro-USB',
+                    'Матеріал': 'Вогнестійкий ABS + PC пластик',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'pb-5',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Baseus',
+                title: 'Baseus Adaman Metal Digital Display 20000mAh 65W',
+                price: 2799,
+                oldPrice: 3299,
+                badge: 'Новинка',
+                badgeType: 'new',
+                rating: 5.0,
+                reviewsCount: 87,
+                colors: ['Чорний металік'],
+                visualType: 'baseus-adaman',
+                shortSpecs: '20000 мАг • Потужність 65W для ноутбуків та смартфонів • Металевий корпус • Круглий LED-екран',
+                description: 'Преміальний павербанк у суцільнометалевому корпусі з високою потужністю 65W, що дозволяє заряджати не лише смартфони, а й MacBook Air, ультрабуки та планшети. Оснащений фірмовим круглим дисплеєм.',
+                specs: {
+                    'Ємність': '20 000 мАг (74 Вт·год)',
+                    'Максимальна потужність': '65W Power Delivery (USB-C)',
+                    'Інтерфейси': '2× USB-A, 1× USB-C (65W), 1× Micro-USB',
+                    'Корпус': 'Анодований метал',
+                    'Гарантія': '12 місяців'
+                }
+            },
+            {
+                id: 'pb-6',
+                category: 'powerbanks',
+                categoryName: 'Павербанки',
+                brand: 'Apple',
+                title: 'Apple MagSafe Battery Pack',
+                price: 4299,
+                oldPrice: null,
+                badge: 'Новинка',
+                badgeType: 'new',
+                rating: 4.8,
+                reviewsCount: 74,
+                colors: ['Білий'],
+                visualType: 'apple-magsafe',
+                shortSpecs: 'Компактний бездротовий • Надійна фіксація MagSafe на iPhone • Відображення заряду в iOS',
+                description: 'Компактний бездротовий магнітний акумулятор Apple MagSafe Battery Pack, який миттєво фіксується на задній панелі iPhone (серій 12–16) без дротів і відображає точний відсоток заряду у віджеті iOS.',
+                specs: {
+                    'Сумісність': 'iPhone 12 / 13 / 14 / 15 / 16 (усі моделі)',
+                    'Кріплення': 'Вбудовані магніти MagSafe',
+                    'Тип зарядки': 'Бездротова магнітна + порт Lightning',
+                    'Інтеграція': 'Віджет елементів живлення в iOS',
+                    'Гарантія': '12 місяців'
+                }
+            }
+        ];
+
+        // =========================================================================
+        // 3. СТАН ДОДАТКУ (Навігація між сторінками, Кошик, Обране)
+        // =========================================================================
+        let state = {
+            currentPage: 'home', // 'home' | 'headphones' | 'powerbanks'
+            cart: JSON.parse(localStorage.getItem('basharimov_cart_v2')) || [],
+            wishlist: JSON.parse(localStorage.getItem('basharimov_wishlist_v2')) || [],
+            cartStep: 'items',
+            lastOrderNumber: null
+        };
+
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₴';
+        }
+
+        function saveStorage() {
+            localStorage.setItem('basharimov_cart_v2', JSON.stringify(state.cart));
+            localStorage.setItem('basharimov_wishlist_v2', JSON.stringify(state.wishlist));
+        }
+
+        // =========================================================================
+        // 4. ПЕРЕМИКАННЯ СТОРІНОК (Головна <-> Сторінка Навушників / Павербанків)
+        // =========================================================================
+        function navigateTo(page) {
+            state.currentPage = page;
+
+            const homeView = document.getElementById('home-page-view');
+            const categoryView = document.getElementById('category-page-view');
+
+            // Оновлення активного стану кнопок у шапці сайту
+            document.querySelectorAll('.nav-link-btn').forEach(btn => {
+                const isTarget = btn.dataset.nav === page;
+                if (btn.classList.contains('flex-1')) {
+                    // Мобільна кнопка
+                    btn.className = isTarget
+                        ? 'nav-link-btn flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-brand-blue text-white text-center shadow-neon-sm'
+                        : 'nav-link-btn flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-300 border border-slate-800 text-center';
+                } else {
+                    // Десктопна кнопка
+                    btn.className = isTarget
+                        ? 'nav-link-btn px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-blue text-white shadow-neon-sm flex items-center gap-2'
+                        : 'nav-link-btn px-4 py-2 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2';
+                }
+            });
+
+            if (page === 'home') {
+                homeView.classList.remove('hidden');
+                categoryView.classList.add('hidden');
+            } else {
+                homeView.classList.add('hidden');
+                categoryView.classList.remove('hidden');
+                renderCategoryPage(page);
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        // Рендеринг окремої сторінки вибраного розділу (без фільтрів)
+        function renderCategoryPage(categoryKey) {
+            const isHeadphones = categoryKey === 'headphones';
+            const categoryTitle = isHeadphones ? 'Навушники' : 'Павербанки';
+            const categorySubtitle = isHeadphones
+                ? 'Добірка актуальних бездротових моделей: Hoco Air Pro 2 з шумозаглушенням, AirPods Pro 2 (з робочим шумозаглушенням), AirPods 4 (ANC) та повнорозмірні Бездротові Навушники.'
+                : 'Надійні зовнішні акумулятори з LED-дисплеями та швидкою зарядкою: Baseus Bipow 20W, Xiaomi Ultra Compact, Anker PowerCore, Hoco J101A, Baseus Adaman 65W та Apple MagSafe.';
+
+            document.getElementById('breadcrumb-current').textContent = categoryTitle;
+            document.getElementById('category-page-badge').textContent = isHeadphones ? 'Розділ 01 • Аудіотехніка' : 'Розділ 02 • Автономне живлення';
+            document.getElementById('category-page-title').textContent = categoryTitle;
+            document.getElementById('category-page-subtitle').textContent = categorySubtitle;
+
+            // Перемикач між двома розділами на сторінці категорії
+            const btnHp = document.getElementById('switch-btn-headphones');
+            const btnPb = document.getElementById('switch-btn-powerbanks');
+
+            if (isHeadphones) {
+                btnHp.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-brand-blue text-white shadow-neon-sm';
+                btnPb.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800';
+            } else {
+                btnPb.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-brand-blue text-white shadow-neon-sm';
+                btnHp.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800';
+            }
+
+            const items = PRODUCTS.filter(p => p.category === categoryKey);
+            document.getElementById('category-items-count').textContent = items.length;
+
+            const grid = document.getElementById('category-products-grid');
+            grid.innerHTML = items.map(product => {
+                const isWishlisted = state.wishlist.includes(product.id);
+                const discountPercent = product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
+
+                const badgeColors = {
+                    hit: 'bg-brand-blue text-white shadow-neon-sm',
+                    sale: 'bg-rose-500 text-white',
+                    new: 'bg-emerald-500 text-white'
+                };
+                const badgeHTML = product.badge
+                    ? `<span class="px-2.5 py-1 rounded-lg text-[11px] font-extrabold uppercase tracking-wide ${badgeColors[product.badgeType] || 'bg-slate-800 text-white'}">${product.badge}</span>`
+                    : '';
+
+                return `
+                    <article class="group bg-white rounded-2xl border border-slate-200/80 shadow-card hover:shadow-card-hover hover:border-brand-blue/50 transition-all duration-300 flex flex-col overflow-hidden relative">
+                        
+                        <!-- Верхні бейджі та Обране -->
+                        <div class="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none">
+                            <div class="flex items-center gap-1.5">
+                                ${badgeHTML}
+                                ${discountPercent > 0 ? `<span class="px-2 py-1 rounded-lg text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 backdrop-blur-sm">-${discountPercent}%</span>` : ''}
+                            </div>
+                            <button onclick="toggleWishlist('${product.id}', event)" class="pointer-events-auto w-9 h-9 rounded-xl bg-slate-900/85 backdrop-blur-sm border border-slate-700 hover:border-rose-400 flex items-center justify-center transition-all shadow-sm hover:scale-105" title="${isWishlisted ? 'Видалити з обраного' : 'Додати в обране'}">
+                                <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'text-rose-500 fill-rose-500' : 'text-slate-300 hover:text-rose-400'}"></i>
+                            </button>
+                        </div>
+
+                        <!-- Фото або кастомна SVG/CSS візуалізація товару -->
+                        <div onclick="openProductModal('${product.id}')" class="cursor-pointer relative h-52 bg-brand-navy overflow-hidden flex items-center justify-center group-hover:brightness-105 transition-all">
+                            <div class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                ${getProductIllustration(product.visualType)}
+                            </div>
+                            ${product.gallery && product.gallery.length > 1 ? `
+                                <span class="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-brand-dark/85 backdrop-blur-sm border border-slate-700/80 text-[11px] font-bold text-slate-200 flex items-center gap-1">
+                                    <i data-lucide="images" class="w-3.5 h-3.5 text-brand-blue"></i>
+                                    <span>${product.gallery.length} фото</span>
+                                </span>
+                            ` : ''}
+                        </div>
+
+                        <!-- Контент картки -->
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+                                    <span class="font-bold text-brand-blue">${product.brand}</span>
+                                    <div class="flex items-center gap-1 text-amber-500 font-semibold">
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                                        <span class="text-slate-700">${product.rating.toFixed(1)}</span>
+                                        <span class="text-slate-400 font-normal">(${product.reviewsCount})</span>
+                                    </div>
+                                </div>
+
+                                <h3 onclick="openProductModal('${product.id}')" class="cursor-pointer font-bold text-slate-900 text-base sm:text-lg leading-snug group-hover:text-brand-blue transition-colors">
+                                    ${product.title}
+                                </h3>
+
+                                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                    ${product.shortSpecs}
+                                </p>
+                            </div>
+
+                            <!-- Ціна та кнопки «Детальніше» і «В кошик» -->
+                            <div class="pt-3 border-t border-slate-100 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        ${product.oldPrice ? `<div class="text-xs text-slate-400 line-through font-medium">${formatPrice(product.oldPrice)}</div>` : ''}
+                                        <div class="font-display text-xl sm:text-2xl font-black text-slate-900">${formatPrice(product.price)}</div>
+                                    </div>
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        В наявності
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2.5">
+                                    <button onclick="openProductModal('${product.id}')" class="flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm py-2.5 px-3 rounded-xl transition-colors">
+                                        <i data-lucide="eye" class="w-4 h-4 text-brand-blue"></i>
+                                        <span>Детальніше</span>
+                                    </button>
+                                    <button onclick="addToCart('${product.id}')" class="flex items-center justify-center gap-1.5 bg-brand-navy hover:bg-brand-blue text-white font-bold text-xs sm:text-sm py-2.5 px-3 rounded-xl transition-all shadow-sm hover:shadow-neon-sm active:scale-95">
+                                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                        <span>В кошик</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </article>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // =========================================================================
+        // 5. МОДАЛЬНЕ ВІКНО «ДЕТАЛЬНІШЕ» (ШВИДКИЙ ПЕРЕГЛЯД ТОВАРУ + ФОТОГАЛЕРЕЯ)
+        // =========================================================================
+        let modalSelectedColor = '';
+        let activeModalProduct = null;
+        let currentGalleryIndex = 0;
+
+        function setModalGallerySlide(index) {
+            if (!activeModalProduct || !activeModalProduct.gallery) return;
+            const total = activeModalProduct.gallery.length;
+            currentGalleryIndex = (index + total) % total;
+            const currentPhoto = activeModalProduct.gallery[currentGalleryIndex];
+
+            const stageEl = document.getElementById('modal-main-stage');
+            const captionEl = document.getElementById('modal-photo-caption');
+            const counterEl = document.getElementById('modal-photo-counter');
+
+            if (stageEl) {
+                stageEl.innerHTML = getProductIllustration(currentPhoto.visualType);
+            }
+            if (captionEl) {
+                captionEl.textContent = currentPhoto.label;
+            }
+            if (counterEl) {
+                counterEl.textContent = `${currentGalleryIndex + 1} / ${total}`;
+            }
+
+            document.querySelectorAll('.modal-thumb-btn').forEach((btn, idx) => {
+                if (idx === currentGalleryIndex) {
+                    btn.className = 'modal-thumb-btn group relative rounded-xl overflow-hidden border-2 border-brand-blue ring-2 ring-brand-blue/30 bg-brand-navy aspect-[4/3] transition-all';
+                } else {
+                    btn.className = 'modal-thumb-btn group relative rounded-xl overflow-hidden border-2 border-slate-200 hover:border-brand-blue/60 bg-brand-navy aspect-[4/3] opacity-85 hover:opacity-100 transition-all';
+                }
+            });
+        }
+
+        function openPhotoLightbox() {
+            if (!activeModalProduct || !activeModalProduct.gallery) return;
+            const currentPhoto = activeModalProduct.gallery[currentGalleryIndex];
+            const lightbox = document.getElementById('photo-lightbox');
+            const stage = document.getElementById('lightbox-stage');
+            const cap = document.getElementById('lightbox-caption');
+            stage.innerHTML = getProductIllustration(currentPhoto.visualType);
+            cap.textContent = currentPhoto.label || '';
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closePhotoLightbox() {
+            const lightbox = document.getElementById('photo-lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }
+
+        function openProductModal(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            activeModalProduct = product;
+            currentGalleryIndex = 0;
+            modalSelectedColor = product.colors[0];
+            const isWishlisted = state.wishlist.includes(product.id);
+            const modal = document.getElementById('product-modal');
+            const content = document.getElementById('product-modal-content');
+
+            const specsRows = Object.entries(product.specs).map(([key, val]) => `
+                <div class="flex justify-between py-2 border-b border-slate-100 text-sm gap-4">
+                    <span class="text-slate-500">${key}</span>
+                    <span class="font-semibold text-slate-900 text-right">${val}</span>
+                </div>
+            `).join('');
+
+            const colorsHTML = product.colors.map((color, idx) => `
+                <button onclick="selectModalColor(this, '${color}')" class="modal-color-btn px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${idx === 0 ? 'border-brand-blue bg-brand-blue/10 text-brand-blue' : 'border-slate-200 text-slate-700 hover:border-slate-300'}">
+                    ${color}
+                </button>
+            `).join('');
+
+            // Блок фотогалереї (якщо товар має галерею з кількох фото — показуємо головне фото, навігацію та всі мініатюри)
+            let visualMediaHTML = '';
+            if (product.gallery && product.gallery.length > 0) {
+                const firstPhoto = product.gallery[0];
+                const thumbsHTML = product.gallery.map((photo, idx) => `
+                    <button type="button" onclick="setModalGallerySlide(${idx})" class="modal-thumb-btn group relative rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-brand-blue ring-2 ring-brand-blue/30' : 'border-slate-200 hover:border-brand-blue/60 opacity-85 hover:opacity-100'} bg-brand-navy aspect-[4/3] transition-all" title="${photo.label}">
+                        <div class="w-full h-full pointer-events-none">
+                            ${getProductIllustration(photo.visualType)}
+                        </div>
+                        <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 rounded bg-black/75 text-[10px] font-semibold text-white truncate text-center">
+                            ${idx === 0 ? 'Студійне' : `Фото ${idx + 1}`}
+                        </span>
+                    </button>
+                `).join('');
+
+                visualMediaHTML = `
+                    <div class="space-y-3">
+                        <div class="relative rounded-2xl overflow-hidden bg-brand-navy border border-slate-800 aspect-[4/3] flex items-center justify-center shadow-lg group">
+                            <div id="modal-main-stage" onclick="openPhotoLightbox()" class="cursor-zoom-in w-full h-full transition-all duration-300">
+                                ${getProductIllustration(firstPhoto.visualType)}
+                            </div>
+
+                            <!-- Кнопки перемикання слайдів -->
+                            <button type="button" onclick="setModalGallerySlide(currentGalleryIndex - 1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brand-dark/80 hover:bg-brand-blue text-white border border-slate-700 flex items-center justify-center transition-all shadow-md" title="Попереднє фото">
+                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            </button>
+                            <button type="button" onclick="setModalGallerySlide(currentGalleryIndex + 1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brand-dark/80 hover:bg-brand-blue text-white border border-slate-700 flex items-center justify-center transition-all shadow-md" title="Наступне фото">
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </button>
+
+                            <!-- Кнопка збільшення фото -->
+                            <button type="button" onclick="openPhotoLightbox()" class="absolute top-3 right-3 px-2.5 py-1.5 rounded-xl bg-brand-dark/80 hover:bg-brand-blue text-white text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-colors" title="Збільшити фото">
+                                <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                                <span>Збільшити</span>
+                            </button>
+
+                            <!-- Підпис поточного фото та лічильник -->
+                            <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-brand-dark/85 backdrop-blur-sm border border-slate-700/80 text-xs text-white">
+                                <span id="modal-photo-caption" class="truncate font-medium">${firstPhoto.label}</span>
+                                <span id="modal-photo-counter" class="shrink-0 font-bold text-brand-glow">1 / ${product.gallery.length}</span>
+                            </div>
+                        </div>
+
+                        <!-- Мініатюри всіх 3 фотографій (студійне + 2 живі фото) -->
+                        <div class="grid grid-cols-3 gap-2.5">
+                            ${thumbsHTML}
+                        </div>
+                    </div>
+                `;
+            } else {
+                visualMediaHTML = `
+                    <div class="rounded-2xl overflow-hidden bg-brand-navy border border-slate-800 aspect-[4/3] flex items-center justify-center shadow-lg">
+                        ${getProductIllustration(product.visualType)}
+                    </div>
+                `;
+            }
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                    <!-- Візуалізація / Фотогалерея товару -->
+                    <div class="space-y-3">
+                        ${visualMediaHTML}
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-brand-blue shrink-0"></i>
+                                <span>Офіційна гарантія</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center gap-2">
+                                <i data-lucide="truck" class="w-4 h-4 text-brand-blue shrink-0"></i>
+                                <span>Відправка сьогодні</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Деталі та характеристики -->
+                    <div class="space-y-4">
+                        <div>
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-brand-blue/10 text-brand-blue text-xs font-bold mb-2">
+                                ${product.categoryName} • ${product.brand}
+                            </span>
+                            <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                                ${product.title}
+                            </h2>
+                            <div class="flex items-center gap-2 mt-2 text-xs">
+                                <div class="flex items-center gap-1 text-amber-500 font-bold">
+                                    <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                                    <span class="text-slate-900">${product.rating.toFixed(1)}</span>
+                                </div>
+                                <span class="text-slate-400">• ${product.reviewsCount} відгуків</span>
+                                <span class="text-emerald-600 font-semibold">• В наявності</span>
+                            </div>
+                        </div>
+
+                        <!-- Вибір кольору -->
+                        <div>
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Колір виконання:</div>
+                            <div class="flex flex-wrap gap-2">${colorsHTML}</div>
+                        </div>
+
+                        <!-- Ціна та кнопки -->
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-4">
+                            <div>
+                                ${product.oldPrice ? `<div class="text-xs text-slate-400 line-through">${formatPrice(product.oldPrice)}</div>` : ''}
+                                <div class="font-display text-2xl sm:text-3xl font-black text-slate-900">${formatPrice(product.price)}</div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleWishlist('${product.id}'); openProductModal('${product.id}');" class="p-3 rounded-xl border border-slate-200 bg-white hover:border-rose-300 transition-colors" title="В обране">
+                                    <i data-lucide="heart" class="w-5 h-5 ${isWishlisted ? 'text-rose-500 fill-rose-500' : 'text-slate-500'}"></i>
+                                </button>
+                                <button onclick="addToCart('${product.id}', modalSelectedColor); closeProductModal();" class="flex items-center gap-2 bg-brand-blue hover:bg-sky-500 text-white font-bold px-5 py-3 rounded-xl shadow-neon-sm transition-all">
+                                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                                    <span>Додати в кошик</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Опис -->
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            ${product.description}
+                        </p>
+
+                        <!-- Характеристики -->
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-900 mb-2">Технічні характеристики</h4>
+                            <div class="space-y-0.5">${specsRows}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function selectModalColor(btn, color) {
+            modalSelectedColor = color;
+            document.querySelectorAll('.modal-color-btn').forEach(b => {
+                b.className = 'modal-color-btn px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all border-slate-200 text-slate-700 hover:border-slate-300';
+            });
+            btn.className = 'modal-color-btn px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all border-brand-blue bg-brand-blue/10 text-brand-blue';
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // =========================================================================
+        // 6. ОБРАНІ ТОВАРИ (WISHLIST)
+        // =========================================================================
+        function toggleWishlist(productId, event) {
+            if (event) event.stopPropagation();
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            if (state.wishlist.includes(productId)) {
+                state.wishlist = state.wishlist.filter(id => id !== productId);
+                showToast(`Видалено з обраного: ${product.title}`, 'info');
+            } else {
+                state.wishlist.push(productId);
+                showToast(`Додано в обране: ${product.title}`, 'success');
+            }
+
+            saveStorage();
+            updateHeaderBadges();
+            if (state.currentPage !== 'home') {
+                renderCategoryPage(state.currentPage);
+            }
+        }
+
+        function openWishlistModal() {
+            const modal = document.getElementById('wishlist-modal');
+            const body = document.getElementById('wishlist-modal-body');
+
+            if (state.wishlist.length === 0) {
+                body.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                            <i data-lucide="heart" class="w-7 h-7"></i>
+                        </div>
+                        <p class="font-bold text-slate-900">Список обраного порожній</p>
+                        <p class="text-xs text-slate-500 mt-1">Натискайте на сердечко на картці товару, щоб зберегти моделі.</p>
+                    </div>
+                `;
+            } else {
+                body.innerHTML = state.wishlist.map(id => {
+                    const p = PRODUCTS.find(item => item.id === id);
+                    if (!p) return '';
+                    return `
+                        <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <div class="w-16 h-14 rounded-xl overflow-hidden bg-brand-navy shrink-0">
+                                ${getProductIllustration(p.visualType)}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-xs font-semibold text-brand-blue">${p.categoryName}</div>
+                                <div class="font-bold text-sm text-slate-900 truncate">${p.title}</div>
+                                <div class="font-display font-extrabold text-sm text-slate-900 mt-0.5">${formatPrice(p.price)}</div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <button onclick="addToCart('${p.id}'); closeWishlistModal();" class="p-2.5 rounded-xl bg-brand-blue hover:bg-sky-500 text-white" title="В кошик">
+                                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="toggleWishlist('${p.id}'); openWishlistModal();" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-rose-500" title="Видалити">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeWishlistModal() {
+            const modal = document.getElementById('wishlist-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // =========================================================================
+        // 7. ВИСУВНИЙ КОШИК ТА ОФОРМЛЕННЯ ЗАМОВЛЕННЯ ЧЕРЕЗ НОВУ ПОШТУ
+        // =========================================================================
+        function addToCart(productId, color = null) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            const chosenColor = color || product.colors[0];
+            const existingIndex = state.cart.findIndex(item => item.id === productId && item.color === chosenColor);
+
+            if (existingIndex > -1) {
+                state.cart[existingIndex].qty += 1;
+            } else {
+                state.cart.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    visualType: product.visualType,
+                    color: chosenColor,
+                    qty: 1
+                });
+            }
+
+            state.cartStep = 'items';
+            saveStorage();
+            updateHeaderBadges();
+            showToast(`Додано до кошика: ${product.title}`, 'success');
+        }
+
+        function updateCartQty(index, delta) {
+            state.cart[index].qty += delta;
+            if (state.cart[index].qty <= 0) {
+                state.cart.splice(index, 1);
+            }
+            saveStorage();
+            updateHeaderBadges();
+            renderCartDrawer();
+        }
+
+        function removeFromCart(index) {
+            state.cart.splice(index, 1);
+            saveStorage();
+            updateHeaderBadges();
+            renderCartDrawer();
+        }
+
+        function updateHeaderBadges() {
+            const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalSum = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+            document.getElementById('cart-badge').textContent = totalItems;
+            document.getElementById('header-cart-total').textContent = formatPrice(totalSum);
+            document.getElementById('drawer-cart-count').textContent = totalItems;
+
+            const wishBadge = document.getElementById('wishlist-badge');
+            if (state.wishlist.length > 0) {
+                wishBadge.textContent = state.wishlist.length;
+                wishBadge.classList.remove('hidden');
+            } else {
+                wishBadge.classList.add('hidden');
+            }
+        }
+
+        function openCartDrawer() {
+            state.cartStep = 'items';
+            renderCartDrawer();
+            document.getElementById('cart-drawer-backdrop').classList.remove('hidden');
+            document.getElementById('cart-drawer').classList.remove('translate-x-full');
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cart-drawer-backdrop').classList.add('hidden');
+            document.getElementById('cart-drawer').classList.add('translate-x-full');
+        }
+
+        function renderCartDrawer() {
+            const body = document.getElementById('cart-drawer-body');
+            const footer = document.getElementById('cart-drawer-footer');
+            const totalSum = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+            // ЕКРАН 3: УСПІШНЕ ЗАМОВЛЕННЯ
+            if (state.cartStep === 'success') {
+                body.innerHTML = `
+                    <div class="text-center py-10 px-2 space-y-4">
+                        <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-11 h-11"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold uppercase tracking-wider text-brand-blue">Замовлення №${state.lastOrderNumber}</span>
+                            <h4 class="font-display text-2xl font-extrabold text-slate-900">Дякуємо за покупку!</h4>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Ваше замовлення у <strong>BasharimovStore</strong> успішно прийнято. Менеджер зв’яжеться з вами найближчим часом для підтвердження та відправки ТТН Нової Пошти.
+                        </p>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-500 space-y-1">
+                            <div>Графік обробки: Пн–Нд 09:00 – 21:00</div>
+                            <div>Гаряча лінія: +38 (067) 000-99-88</div>
+                        </div>
+                    </div>
+                `;
+                footer.innerHTML = `
+                    <button onclick="closeCartDrawer()" class="w-full py-3.5 rounded-xl bg-brand-navy hover:bg-brand-blue text-white font-bold text-sm transition-colors">
+                        Повернутися до магазину
+                    </button>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // ПОРОЖНІЙ КОШИК
+            if (state.cart.length === 0) {
+                body.innerHTML = `
+                    <div class="text-center py-14 space-y-3">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+                            <i data-lucide="shopping-bag" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-slate-900">Ваш кошик порожній</h4>
+                        <p class="text-sm text-slate-500 max-w-xs mx-auto">Оберіть сучасні навушники або потужний павербанк у нашому каталозі.</p>
+                    </div>
+                `;
+                footer.innerHTML = `
+                    <button onclick="closeCartDrawer()" class="w-full py-3 rounded-xl bg-brand-blue hover:bg-sky-500 text-white font-bold text-sm transition-colors">
+                        Перейти до вибору товарів
+                    </button>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // ЕКРАН 2: ФОРМА ОФОРМЛЕННЯ ЗАМОВЛЕННЯ ЧЕРЕЗ НОВУ ПОШТУ
+            if (state.cartStep === 'checkout') {
+                body.innerHTML = `
+                    <div class="space-y-4">
+                        <button onclick="state.cartStep = 'items'; renderCartDrawer();" class="flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:underline">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Назад до списку товарів</span>
+                        </button>
+
+                        <h4 class="font-display font-extrabold text-lg text-slate-900">Оформлення замовлення</h4>
+
+                        <form id="checkout-form" onsubmit="submitOrder(event)" class="space-y-3.5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Прізвище та Ім'я *</label>
+                                <input type="text" required placeholder="Наприклад: Іваненко Олександр" class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Номер телефону *</label>
+                                <input type="tel" required placeholder="+38 (0__) ___-__-__" class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Місто доставки *</label>
+                                    <input type="text" required placeholder="Київ, Львів, Одеса..." class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Відділення / Поштомат НП *</label>
+                                    <input type="text" required placeholder="Відділення №1" class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Спосіб оплати</label>
+                                <select class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue">
+                                    <option value="cod">Оплата при отриманні (Накладений платіж Нова Пошта)</option>
+                                    <option value="card">Оплата карткою Visa / Mastercard / Apple Pay</option>
+                                    <option value="mono">Покупка частинами Monobank / ПриватБанк</option>
+                                </select>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-brand-blue/5 border border-brand-blue/20 flex items-center justify-between text-sm">
+                                <span class="text-slate-600 font-medium">До сплати за замовлення:</span>
+                                <span class="font-display font-black text-lg text-slate-900">${formatPrice(totalSum)}</span>
+                            </div>
+                        </form>
+                    </div>
+                `;
+                footer.innerHTML = `
+                    <button type="submit" form="checkout-form" class="w-full py-3.5 rounded-xl bg-brand-blue hover:bg-sky-500 text-white font-bold text-sm shadow-neon-sm transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                        <span>Підтвердити замовлення</span>
+                    </button>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // ЕКРАН 1: СПИСОК ТОВАРІВ У КОШИКУ
+            body.innerHTML = state.cart.map((item, idx) => `
+                <div class="flex gap-3.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <div class="w-20 h-16 rounded-xl overflow-hidden bg-brand-navy shrink-0 border border-slate-800">
+                        ${getProductIllustration(item.visualType || 'airpods-pro-2')}
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2">
+                                <h4 class="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-2">${item.title}</h4>
+                                <button onclick="removeFromCart(${idx})" class="text-slate-400 hover:text-rose-500 p-0.5 shrink-0" title="Видалити">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <span class="text-[11px] text-slate-500">Колір: ${item.color}</span>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-2.5">
+                            <div class="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden">
+                                <button onclick="updateCartQty(${idx}, -1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold">-</button>
+                                <span class="w-7 text-center text-xs font-bold text-slate-900">${item.qty}</span>
+                                <button onclick="updateCartQty(${idx}, 1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold">+</button>
+                            </div>
+                            <span class="font-display font-extrabold text-sm text-slate-900">${formatPrice(item.price * item.qty)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            footer.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-slate-600 font-medium">Разом до сплати:</span>
+                    <span class="font-display text-2xl font-black text-slate-900">${formatPrice(totalSum)}</span>
+                </div>
+                <button onclick="state.cartStep = 'checkout'; renderCartDrawer();" class="w-full py-3.5 rounded-xl bg-brand-blue hover:bg-sky-500 text-white font-bold text-sm shadow-neon-sm transition-all flex items-center justify-center gap-2">
+                    <span>Оформити замовлення</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            `;
+            lucide.createIcons();
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            state.lastOrderNumber = Math.floor(100000 + Math.random() * 900000);
+            state.cart = [];
+            state.cartStep = 'success';
+            saveStorage();
+            updateHeaderBadges();
+            renderCartDrawer();
+        }
+
+        // =========================================================================
+        // 8. СПОВІЩЕННЯ (TOAST)
+        // =========================================================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const iconName = type === 'success' ? 'check-circle' : 'info';
+            const iconColor = type === 'success' ? 'text-brand-blue' : 'text-sky-400';
+
+            toast.className = 'pointer-events-auto bg-brand-navy/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700/80 flex items-center gap-3 text-xs sm:text-sm font-medium transform transition-all duration-300 translate-y-2 opacity-0';
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="w-5 h-5 ${iconColor} shrink-0"></i>
+                <span class="flex-1 leading-snug">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Ініціалізація при завантаженні сторінки
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateHeaderBadges();
+        });
+    </script>
+</body>
+</html>
